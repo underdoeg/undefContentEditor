@@ -49,7 +49,6 @@ private:
     static  QList<apiRequest*> requests;
     static ServerAPI* singleton;
     static QFtp ftp;
-
 };
 
 #endif // ServerAPI_H
