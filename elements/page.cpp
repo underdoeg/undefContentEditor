@@ -25,8 +25,6 @@ page::page(QWidget *parent) :
     treeWidgetItem = new QTreeWidgetItem();
     treeWidgetItem->setText(0, "loading...");
     dataChanged = false;
-
-
 }
 
 void page::resetMinSize(){
@@ -82,13 +80,14 @@ void page::onPageData(pageData pd){
     }else{
         pageHandler::treeWidget->addTopLevelItem(treeWidgetItem);
     }
+    pageHandler::updateTree();
 }
 
 void page::updateTitle(QString name){
     QString trt = "I don't like "+data.title+"";
     if(name.isEmpty()){
         name =  QInputDialog::getText(this, tr("rename"),
-                                        trt, QLineEdit::Normal, data.title);
+                                      trt, QLineEdit::Normal, data.title);
     }
     if(name.isEmpty())
         return;
@@ -106,7 +105,7 @@ void page::parseData(){
     dataChanged = false;
 }
 
-void page::createField(int id){
+field* page::createField(int id){
     field* f = new field(fieldRoot);
     f->parent = this;
     f->stackUnder(fieldOverlay);
@@ -115,6 +114,7 @@ void page::createField(int id){
     else{
         fieldData d;
         f->onFieldData(d);
+        selectFields(f);
     }
     addField(f);
 }
@@ -134,7 +134,7 @@ void page::addField(field* f){
     f->addFieldListener(this);
     fields.push_back(f);
     resetMinSize();
-    update();
+    fieldRoot->update();
 }
 
 int page::getID(){
@@ -147,9 +147,16 @@ void page::activeFieldSelectBackground(){
     selectedFields[0]->selectBackgroundColor();
 }
 
+void page::createFieldWithImage(){
+    field* f = createField();
+    f->addImage(true);
+}
+
 void page::addImage(bool showLoad){
-    if(selectedFields.size()==0)
+    if(selectedFields.size()==0){
+        createFieldWithImage();
         return;
+    }
     selectedFields[0]->addImage(showLoad);
 }
 

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>824</width>
-    <height>500</height>
+    <width>947</width>
+    <height>515</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -123,7 +123,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>824</width>
+     <width>947</width>
      <height>22</height>
     </rect>
    </property>
@@ -276,6 +276,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>Ctrl+B</string>
+   </property>
+  </action>
+  <action name="printPDF">
+   <property name="text">
+    <string>pdf</string>
    </property>
   </action>
  </widget>

@@ -15,8 +15,9 @@ Q_OBJECT
 public:
     explicit page(QWidget *parent = 0);
     void load(int id);
-    void createField(int id=-1);
+    field* createField(int id=-1);
     void addField(field* f);
+    void createFieldWithImage();
     void parseData();
     int getID();
     void fieldOverlayShow();

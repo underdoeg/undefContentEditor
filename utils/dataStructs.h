@@ -44,6 +44,8 @@ struct pageData{
     pageData(){
         id = -1;
         title = "new Page";
+        background = QColor(255,255,255,255);
+        parent_id = -1;
     }
     QList<int> fieldIDs;
     int parent_id;
@@ -102,6 +104,7 @@ struct fieldData{
         media_y = 0;
         media_w = 100;
         media_h = 100;
+        zindex = 0;
     }
 
     int id;

@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pagehandler.h'
 **
-** Created: Thu Apr 15 04:37:21 2010
+** Created: Thu Apr 15 16:02:22 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_pageHandler[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-      20,   14, // methods
+      22,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -50,7 +50,9 @@ static const uint qt_meta_data_pageHandler[] = {
      252,   12,   12,   12, 0x0a,
      269,   12,   12,   12, 0x0a,
      294,   12,   12,   12, 0x0a,
-     328,   12,   12,   12, 0x0a,
+     306,   12,   12,   12, 0x0a,
+     333,   12,   12,   12, 0x0a,
+     367,   12,   12,   12, 0x0a,
 
        0        // eod
 };
@@ -63,7 +65,8 @@ static const char qt_meta_stringdata_pageHandler[] = {
     "savePage(int)\0savePage()\0parentID\0"
     "addField(int)\0addField()\0addImage()\0"
     "setFieldBackgroundColor()\0toggleTextEdit()\0"
-    "setPageBackgroundColor()\0"
+    "setPageBackgroundColor()\0exportPDF()\0"
+    "treeItemSelectionChanged()\0"
     "treeItemClicked(QTreeWidgetItem*)\0"
     "treeItemDoubleClicked(QTreeWidgetItem*)\0"
 };
@@ -117,11 +120,13 @@ int pageHandler::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 15: setFieldBackgroundColor(); break;
         case 16: toggleTextEdit(); break;
         case 17: setPageBackgroundColor(); break;
-        case 18: treeItemClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
-        case 19: treeItemDoubleClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 18: exportPDF(); break;
+        case 19: treeItemSelectionChanged(); break;
+        case 20: treeItemClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 21: treeItemDoubleClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 20;
+        _id -= 22;
     }
     return _id;
 }

@@ -14,6 +14,8 @@ pageHandler::pageHandler(QWidget *parent) :
 void pageHandler::setup(){
     connect(treeWidget,SIGNAL(itemClicked(QTreeWidgetItem *, int)), getSingleton(), SLOT(treeItemClicked(QTreeWidgetItem *)));
     connect(treeWidget,SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), getSingleton(), SLOT(treeItemDoubleClicked(QTreeWidgetItem *)));
+    connect(treeWidget,SIGNAL(itemSelectionChanged()), getSingleton(), SLOT(treeItemSelectionChanged()));
+
 }
 
 pageHandler* pageHandler::getSingleton(){
@@ -35,8 +37,8 @@ void pageHandler::onPagesList(QList<int> list){
 void pageHandler::addPage(int id){
     page* p = new page(getSingleton());
     pageStack->addWidget(p);
-    if(id>0)p->load(id);else{ pageData d; p->onPageData(d);};
     addPage(p);
+    if(id>0)p->load(id);else{ pageData d; p->onPageData(d); showPage(p); };
     pageStack->update();
 }
 
@@ -68,7 +70,7 @@ void pageHandler::addField(int parentID){
         p = getPageByID(parentID);
     if(p == 0)
         return;
-    p->createField();
+    p->createField(0);
 }
 
 page* pageHandler::getPageByID(int id){
@@ -86,7 +88,6 @@ page* pageHandler::getPageByTreeItem(QTreeWidgetItem* ti){
     }
     return 0;
 }
-
 
 void pageHandler::showPage(page* p){
     if(p == 0)
@@ -135,6 +136,19 @@ void pageHandler::toggleTextEdit(){
     p->toggleTextEdit();
 }
 
+void pageHandler::exportPDF(){
+    QPrinter printer;
+    printer.setOutputFormat(QPrinter::PdfFormat);
+    printer.setOutputFileName("printout.pdf");
+    printer.setFullPage(true);
+    printer.setOrientation(QPrinter::Portrait);
+    printer.setPaperSize(QPrinter::A4);
+    QPainter painter(&printer);
+
+    pageStack->render(&painter, QPoint(0,0));
+    //ui->table->render(&painter,QPoint(80,100));
+}
+
 void pageHandler::mouseReleaseEvent ( QMouseEvent * event ){
 
 }
@@ -144,9 +158,20 @@ void pageHandler::updateTree(){
 }
 
 void pageHandler::treeItemClicked(QTreeWidgetItem *ti){
-    for(int i=0;i<pages.size();i++){
+    /* for(int i=0;i<pages.size();i++){
         if(pages[i]->treeWidgetItem == ti)
             showPage(pages[i]);
+    }*/
+}
+
+void pageHandler::treeItemSelectionChanged(){
+    if(treeWidget->selectedItems().size()==0)
+        return;
+    for(int i=0;i<pages.size();i++){
+        if(pages[i]->treeWidgetItem == treeWidget->selectedItems()[0]){
+            showPage(pages[i]);
+            return;
+        }
     }
 }
 

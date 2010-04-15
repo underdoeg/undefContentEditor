@@ -17,6 +17,7 @@ field::field(QWidget *parent) :
     toggleTextEdit();
 
     fieldListener = 0;
+    show();
 }
 
 void field::load(int id){
@@ -31,7 +32,6 @@ void field::onFieldData(fieldData fd){
 
 void field::loadData(fieldData fd){
     data = fd;
-
     if(mediaField != 0)
         delete mediaField;
     if(data.media.type == "image"){
@@ -58,7 +58,6 @@ void field::updateGeometry(){
             mediaField->setBounds(data.media_x, data.media_y, data.media_w, data.media_h);
         }
     }
-
 }
 
 void field::setParentID(int id){
@@ -82,11 +81,11 @@ void field::onFieldSave(int id){
 void field::toggleTextEdit(){
     if(textEdit->isEnabled()){
         textEdit->setEnabled(false);
-        textEdit->setStyleSheet("background-color:transparent");
+        textEdit->setStyleSheet("background-color:transparent;border:none");
         textEdit->stackUnder(overlay);
     }else{
         textEdit->setEnabled(true);
-        textEdit->setStyleSheet("background-color:rgba(255,255,255,50)");
+        textEdit->setStyleSheet("background-color:rgba(255,255,255,50);border:none");
         overlay->stackUnder(textEdit);
     }
 }

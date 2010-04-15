@@ -39,6 +39,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->addImage, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(addImage()));
     connect(ui->toggleText, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(toggleTextEdit()));
     connect(ui->pageBackgroundColor, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(setPageBackgroundColor()));
+    connect(ui->printPDF, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(exportPDF()));
 
 
     lastWebViewGeometry = QRect(200,200,500,400);

@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu Apr 15 03:38:54 2010
+** Created: Thu Apr 15 14:28:05 2010
 **      by: Qt User Interface Compiler version 4.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -43,6 +43,7 @@ public:
     QAction *addImage;
     QAction *toggleText;
     QAction *pageBackgroundColor;
+    QAction *printPDF;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTreeWidget *pagesList;
@@ -61,7 +62,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(824, 500);
+        MainWindow->resize(947, 515);
         newPage = new QAction(MainWindow);
         newPage->setObjectName(QString::fromUtf8("newPage"));
         deletePage = new QAction(MainWindow);
@@ -88,6 +89,8 @@ public:
         toggleText->setObjectName(QString::fromUtf8("toggleText"));
         pageBackgroundColor = new QAction(MainWindow);
         pageBackgroundColor->setObjectName(QString::fromUtf8("pageBackgroundColor"));
+        printPDF = new QAction(MainWindow);
+        printPDF->setObjectName(QString::fromUtf8("printPDF"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -146,7 +149,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 824, 22));
+        menuBar->setGeometry(QRect(0, 0, 947, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -225,6 +228,7 @@ public:
         toggleText->setText(QApplication::translate("MainWindow", "edit text", 0, QApplication::UnicodeUTF8));
         pageBackgroundColor->setText(QApplication::translate("MainWindow", "color", 0, QApplication::UnicodeUTF8));
         pageBackgroundColor->setShortcut(QApplication::translate("MainWindow", "Ctrl+B", 0, QApplication::UnicodeUTF8));
+        printPDF->setText(QApplication::translate("MainWindow", "pdf", 0, QApplication::UnicodeUTF8));
         QTreeWidgetItem *___qtreewidgetitem = pagesList->headerItem();
         ___qtreewidgetitem->setText(0, QApplication::translate("MainWindow", "page", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

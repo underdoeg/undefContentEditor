@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QWebView>
 #include <QTreeWidget>
+#include <QPrinter>
 #include <QStackedWidget>
 #include "utils/api.h"
 #include "elements/page.h"
@@ -42,10 +43,12 @@ public slots:
     static void setFieldBackgroundColor();
     static void toggleTextEdit();
     static void setPageBackgroundColor();
+    static void exportPDF();
 
 signals:
 
 public slots:
+    void treeItemSelectionChanged();
     void treeItemClicked(QTreeWidgetItem *);
     void treeItemDoubleClicked(QTreeWidgetItem *);
 private:
