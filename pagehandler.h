@@ -20,6 +20,7 @@ public:
     static void addPage(int id);
     static page* getCurrentPage();
     static page* getPageByID(int id);
+    static page* getPageByTreeItem(QTreeWidgetItem* ti);
 
     static QTreeWidget* treeWidget;
     static QStackedWidget* pageStack;
@@ -40,11 +41,13 @@ public slots:
     static void addImage();
     static void setFieldBackgroundColor();
     static void toggleTextEdit();
+    static void setPageBackgroundColor();
 
 signals:
 
 public slots:
     void treeItemClicked(QTreeWidgetItem *);
+    void treeItemDoubleClicked(QTreeWidgetItem *);
 private:
     static pageHandler* singleton;
     static QList<page*> pages;

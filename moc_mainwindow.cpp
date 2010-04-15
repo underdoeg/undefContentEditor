@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'mainwindow.h'
 **
-** Created: Thu Apr 15 02:52:04 2010
+** Created: Thu Apr 15 04:37:15 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_MainWindow[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-       7,   14, // methods
+       9,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -38,6 +38,8 @@ static const uint qt_meta_data_MainWindow[] = {
       99,   12,   11,   11, 0x0a,
      119,   11,   11,   11, 0x2a,
      135,   11,   11,   11, 0x0a,
+     151,   11,   11,   11, 0x0a,
+     161,   11,   11,   11, 0x0a,
 
        0        // eod
 };
@@ -47,6 +49,7 @@ static const char qt_meta_stringdata_MainWindow[] = {
     "togglePagesList()\0toggleFullscreen(bool)\0"
     "toggleFullscreen()\0togglePreview(bool)\0"
     "togglePreview()\0onPreviewHide()\0"
+    "addPage()\0addField()\0"
 };
 
 const QMetaObject MainWindow::staticMetaObject = {
@@ -85,9 +88,11 @@ int MainWindow::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 4: togglePreview((*reinterpret_cast< bool(*)>(_a[1]))); break;
         case 5: togglePreview(); break;
         case 6: onPreviewHide(); break;
+        case 7: addPage(); break;
+        case 8: addField(); break;
         default: ;
         }
-        _id -= 7;
+        _id -= 9;
     }
     return _id;
 }

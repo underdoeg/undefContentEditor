@@ -6,7 +6,6 @@ field::field(QWidget *parent) :
         QWidget(parent)
 {
     background = new QFrame(this);
-    setStyleSheet("background-color: transparent;");
     mediaField = 0;
 
     overlay = new QFrame(this);
@@ -32,6 +31,7 @@ void field::onFieldData(fieldData fd){
 
 void field::loadData(fieldData fd){
     data = fd;
+
     if(mediaField != 0)
         delete mediaField;
     if(data.media.type == "image"){
@@ -93,8 +93,8 @@ void field::toggleTextEdit(){
 
 void field::highlite(){
     //QColor border(255-data.background.red(), 255-data.background.green(), 255-data.background.blue(), 255);
-    QColor border(200, 100, 10, 255);
-    overlay->setStyleSheet("border: 1px solid "+border.name());
+    QColor border(200, 200, 150, 100);
+    overlay->setStyleSheet("border: 3px solid rgba(230,230,100,150)");
 }
 void field::unhighlite(){
     overlay->setStyleSheet("border: none;");

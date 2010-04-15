@@ -7,12 +7,13 @@ QWebView* pageHandler::webView;
 page* pageHandler::currentPage = 0;
 
 pageHandler::pageHandler(QWidget *parent) :
-    QWidget(parent)
+        QWidget(parent)
 {
 }
 
 void pageHandler::setup(){
     connect(treeWidget,SIGNAL(itemClicked(QTreeWidgetItem *, int)), getSingleton(), SLOT(treeItemClicked(QTreeWidgetItem *)));
+    connect(treeWidget,SIGNAL(itemDoubleClicked(QTreeWidgetItem *, int)), getSingleton(), SLOT(treeItemDoubleClicked(QTreeWidgetItem *)));
 }
 
 pageHandler* pageHandler::getSingleton(){
@@ -36,6 +37,7 @@ void pageHandler::addPage(int id){
     pageStack->addWidget(p);
     if(id>0)p->load(id);else{ pageData d; p->onPageData(d);};
     addPage(p);
+    pageStack->update();
 }
 
 void pageHandler::addPage(){
@@ -51,6 +53,13 @@ void pageHandler::removePage(int id){
 }
 void pageHandler::removePage(page* p){
 
+}
+
+void pageHandler::setPageBackgroundColor(){
+    page* p = getCurrentPage();
+    if(p == 0)
+        return;
+    p->pickBackgroundColor();
 }
 
 void pageHandler::addField(int parentID){
@@ -69,6 +78,15 @@ page* pageHandler::getPageByID(int id){
     }
     return 0;
 }
+
+page* pageHandler::getPageByTreeItem(QTreeWidgetItem* ti){
+    for(int i=0;i<pages.size();i++){
+        if(pages[i]->treeWidgetItem == ti)
+            return pages[i];
+    }
+    return 0;
+}
+
 
 void pageHandler::showPage(page* p){
     if(p == 0)
@@ -132,13 +150,20 @@ void pageHandler::treeItemClicked(QTreeWidgetItem *ti){
     }
 }
 
+void pageHandler::treeItemDoubleClicked(QTreeWidgetItem* ti){
+    page* p = getPageByTreeItem(ti);
+    if(p==0)
+        return;
+    p->updateTitle();
+}
+
 void pageHandler::loadPreview(int id){
     if(webView->isHidden())
         return;
     if(id == -1){
         page* p = getCurrentPage();
         if(p == 0)
-           return;
+            return;
         id = p->getID();
     }
     QString url = "http://"+ServerAPI::rpcHost+"/contentEditor/server/pages/view/";

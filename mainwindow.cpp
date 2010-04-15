@@ -33,11 +33,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->togglePagesList,SIGNAL(triggered()),this, SLOT(togglePagesList()));
     connect(ui->toggleFullscreen,SIGNAL(triggered()),this, SLOT(toggleFullscreen()));
     connect(ui->togglePreview,SIGNAL(triggered()),this, SLOT(togglePreview()));
-    connect(ui->newPage,SIGNAL(triggered()),pageHandler::getSingleton(), SLOT(addPage()));
-    connect(ui->newField,SIGNAL(triggered()),pageHandler::getSingleton(), SLOT(addField()));
+    connect(ui->newPage,SIGNAL(triggered()),this, SLOT(addPage()));
+    connect(ui->newField,SIGNAL(triggered()),this, SLOT(addField()));
     connect(ui->backgroundColor, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(setFieldBackgroundColor()));
     connect(ui->addImage, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(addImage()));
     connect(ui->toggleText, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(toggleTextEdit()));
+    connect(ui->pageBackgroundColor, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(setPageBackgroundColor()));
 
 
     lastWebViewGeometry = QRect(200,200,500,400);
@@ -66,6 +67,14 @@ void MainWindow::toggleFullscreen(bool stat){
 
 void MainWindow::onPreviewHide(){
     lastWebViewGeometry = webView->geometry();
+}
+
+void MainWindow::addPage(){
+    pageHandler::addPage();
+}
+
+void MainWindow::addField(){
+    pageHandler::addField();
 }
 
 void MainWindow::togglePreview(bool stat){

@@ -25,6 +25,8 @@ page::page(QWidget *parent) :
     treeWidgetItem = new QTreeWidgetItem();
     treeWidgetItem->setText(0, "loading...");
     dataChanged = false;
+
+
 }
 
 void page::resetMinSize(){
@@ -48,6 +50,19 @@ void page::fieldResized(field *f){
     resetMinSize();
 }
 
+void page::pickBackgroundColor(){
+    QColor color = QColorDialog::getColor(Qt::white, this );
+    if( color.isValid() )
+    {
+        setBackgroundColor(color);
+    }
+}
+
+void page::setBackgroundColor(QColor bgColor){
+    data.background = bgColor;
+    scrollArea->setStyleSheet("background-color:"+data.background.name());
+}
+
 void page::load(int id){
     ServerAPI::getPageData(this, id);
     data.id = id;
@@ -57,6 +72,7 @@ void page::onPageData(pageData pd){
     data = pd;
     dataChanged = true;
     //update the tree widget item
+    setBackgroundColor(data.background);
     treeWidgetItem->setText(0,data.title);
     if(data.parent_id>0){
         page* p = pageHandler::getPageByID(data.parent_id);
@@ -66,6 +82,18 @@ void page::onPageData(pageData pd){
     }else{
         pageHandler::treeWidget->addTopLevelItem(treeWidgetItem);
     }
+}
+
+void page::updateTitle(QString name){
+    QString trt = "I don't like "+data.title+"";
+    if(name.isEmpty()){
+        name =  QInputDialog::getText(this, tr("rename"),
+                                        trt, QLineEdit::Normal, data.title);
+    }
+    if(name.isEmpty())
+        return;
+    data.title = name;
+    treeWidgetItem->setText(0,data.title);
 }
 
 void page::parseData(){
@@ -106,6 +134,7 @@ void page::addField(field* f){
     f->addFieldListener(this);
     fields.push_back(f);
     resetMinSize();
+    update();
 }
 
 int page::getID(){

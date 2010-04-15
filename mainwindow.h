@@ -19,6 +19,8 @@ public slots:
     void toggleFullscreen(bool stat=false);
     void togglePreview(bool stat=false);
     void onPreviewHide();
+    void addPage();
+    void addField();
 
 protected:
     void changeEvent(QEvent *e);

@@ -49,6 +49,7 @@ struct pageData{
     int parent_id;
     int id;
     QString title;
+    QColor background;
 };
 
 static pageData toPageData(QVariant qv){
@@ -62,7 +63,7 @@ static pageData toPageData(QVariant qv){
     d.id = dat["id"].toInt();
     d.title = dat["title"].toString();
     d.parent_id = dat["parent_id"].toInt();
-
+    d.background = QColor(dat["background"].toString());
     QVariantList fields = qv.toMap()["Field"].toList();
     for(int i=0;i<fields.size();i++){
         d.fieldIDs.push_back(fields[i].toMap()["id"].toInt());
@@ -83,6 +84,7 @@ static QMap<QString, xmlrpc::Variant> toPageVariant(pageData fd){
     ff["id"] = fd.id;
     ff["title"] =fd.title;
     ff["parent_id"] = fd.parent_id;
+    ff["background"] = fd.background.name();
     dat["Page"] = ff;
     return dat;
 };
@@ -94,8 +96,12 @@ struct fieldData{
         y = 0;
         w = 100;
         h = 100;
-        background = QColor(220,220,220);
+        background = QColor(255,255,255);
         content = "";
+        media_x = 0;
+        media_y = 0;
+        media_w = 100;
+        media_h = 100;
     }
 
     int id;

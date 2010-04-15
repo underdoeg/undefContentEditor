@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Thu Apr 15 01:38:59 2010
+** Created: Thu Apr 15 03:38:54 2010
 **      by: Qt User Interface Compiler version 4.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -42,6 +42,7 @@ public:
     QAction *backgroundColor;
     QAction *addImage;
     QAction *toggleText;
+    QAction *pageBackgroundColor;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTreeWidget *pagesList;
@@ -85,6 +86,8 @@ public:
         addImage->setObjectName(QString::fromUtf8("addImage"));
         toggleText = new QAction(MainWindow);
         toggleText->setObjectName(QString::fromUtf8("toggleText"));
+        pageBackgroundColor = new QAction(MainWindow);
+        pageBackgroundColor->setObjectName(QString::fromUtf8("pageBackgroundColor"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -157,6 +160,7 @@ public:
         mainToolBar->addAction(newPage);
         mainToolBar->addAction(savePage);
         mainToolBar->addAction(deletePage);
+        mainToolBar->addAction(pageBackgroundColor);
         mainToolBar->addSeparator();
         mainToolBar->addAction(newField);
         mainToolBar->addAction(deleteField);
@@ -219,6 +223,8 @@ public:
 #endif // QT_NO_TOOLTIP
         addImage->setShortcut(QApplication::translate("MainWindow", "I", 0, QApplication::UnicodeUTF8));
         toggleText->setText(QApplication::translate("MainWindow", "edit text", 0, QApplication::UnicodeUTF8));
+        pageBackgroundColor->setText(QApplication::translate("MainWindow", "color", 0, QApplication::UnicodeUTF8));
+        pageBackgroundColor->setShortcut(QApplication::translate("MainWindow", "Ctrl+B", 0, QApplication::UnicodeUTF8));
         QTreeWidgetItem *___qtreewidgetitem = pagesList->headerItem();
         ___qtreewidgetitem->setText(0, QApplication::translate("MainWindow", "page", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

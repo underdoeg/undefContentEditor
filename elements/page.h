@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QTreeWidgetItem>
 #include <QHBoxLayout>
+#include <QInputDialog>
 #include <QScrollArea>
 #include "utils/api.h"
 #include "field.h"
@@ -34,6 +35,9 @@ public:
     void resetMinSize();
     void fieldMoved(field *f);
     void fieldResized(field *f);
+    void setBackgroundColor(QColor bgColor);
+    void pickBackgroundColor();
+    void updateTitle(QString name="");
     QRect fieldOverlayGetPosition();
 
     QTreeWidgetItem* treeWidgetItem;
