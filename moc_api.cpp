@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'api.h'
 **
-** Created: Wed Apr 14 15:30:51 2010
+** Created: Thu Apr 15 00:38:26 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_ServerAPI[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-       6,   14, // methods
+       8,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -37,6 +37,8 @@ static const uint qt_meta_data_ServerAPI[] = {
      127,   11,   10,   10, 0x08,
      162,   11,   10,   10, 0x08,
      227,  195,   10,   10, 0x08,
+     278,  257,   10,   10, 0x08,
+     336,  320,   10,   10, 0x08,
 
        0        // eod
 };
@@ -50,6 +52,9 @@ static const char qt_meta_stringdata_ServerAPI[] = {
     "respondGetPageData(int,QVariant)\0"
     "requestId,errorCode,errorString\0"
     "processFault(int,int,QString)\0"
+    "readBytes,totalBytes\0"
+    "updateDataTransferProgress(qint64,qint64)\0"
+    "commandId,error\0ftpCommandFinished(int,bool)\0"
 };
 
 const QMetaObject ServerAPI::staticMetaObject = {
@@ -87,9 +92,11 @@ int ServerAPI::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 3: respondSaveFieldData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QVariant(*)>(_a[2]))); break;
         case 4: respondGetPageData((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< QVariant(*)>(_a[2]))); break;
         case 5: processFault((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< int(*)>(_a[2])),(*reinterpret_cast< QString(*)>(_a[3]))); break;
+        case 6: updateDataTransferProgress((*reinterpret_cast< qint64(*)>(_a[1])),(*reinterpret_cast< qint64(*)>(_a[2]))); break;
+        case 7: ftpCommandFinished((*reinterpret_cast< int(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
         default: ;
         }
-        _id -= 6;
+        _id -= 8;
     }
     return _id;
 }

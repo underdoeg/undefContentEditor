@@ -21,3 +21,7 @@ bool media::getAutoSize(){
 void media::setBounds(QRect r){
     setBounds(r.x(), r.y(), r.width(), r.height());
 }
+
+void media::setMediaListener(mediaListener* ml){
+    mListener = ml;
+}

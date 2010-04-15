@@ -4,7 +4,7 @@
 #include <QFileDialog>
 #include "media.h"
 
-class image : public media, public QLabel
+class image : public media, public QLabel, public apiListener
 {
 public:
     image(QWidget* parent);
@@ -12,7 +12,11 @@ public:
     QRect getBounds();
     void onMediaDataChange();
     void showMenu();
-    void loadImage(QString path);
+    void loadImage(QString path, bool resize = false);
+    void onFileDownloadComplete(QString fileName);
+    void onFileUploadComplete(QString fileName);
+    void onSave();
+    QString getMediaType();
 
     QPixmap* pixmap;
     QPixmap pixmapScaled;

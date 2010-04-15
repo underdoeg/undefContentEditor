@@ -1,7 +1,7 @@
 /********************************************************************************
 ** Form generated from reading UI file 'mainwindow.ui'
 **
-** Created: Tue Apr 13 13:08:35 2010
+** Created: Thu Apr 15 01:38:59 2010
 **      by: Qt User Interface Compiler version 4.6.2
 **
 ** WARNING! All changes made in this file will be lost when recompiling UI file!
@@ -41,6 +41,7 @@ public:
     QAction *savePage;
     QAction *backgroundColor;
     QAction *addImage;
+    QAction *toggleText;
     QWidget *centralWidget;
     QGridLayout *gridLayout;
     QTreeWidget *pagesList;
@@ -59,7 +60,7 @@ public:
     {
         if (MainWindow->objectName().isEmpty())
             MainWindow->setObjectName(QString::fromUtf8("MainWindow"));
-        MainWindow->resize(702, 510);
+        MainWindow->resize(824, 500);
         newPage = new QAction(MainWindow);
         newPage->setObjectName(QString::fromUtf8("newPage"));
         deletePage = new QAction(MainWindow);
@@ -82,6 +83,8 @@ public:
         backgroundColor->setObjectName(QString::fromUtf8("backgroundColor"));
         addImage = new QAction(MainWindow);
         addImage->setObjectName(QString::fromUtf8("addImage"));
+        toggleText = new QAction(MainWindow);
+        toggleText->setObjectName(QString::fromUtf8("toggleText"));
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         gridLayout = new QGridLayout(centralWidget);
@@ -140,7 +143,7 @@ public:
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 702, 22));
+        menuBar->setGeometry(QRect(0, 0, 824, 22));
         MainWindow->setMenuBar(menuBar);
         mainToolBar = new QToolBar(MainWindow);
         mainToolBar->setObjectName(QString::fromUtf8("mainToolBar"));
@@ -160,6 +163,7 @@ public:
         mainToolBar->addSeparator();
         mainToolBar->addAction(backgroundColor);
         mainToolBar->addAction(addImage);
+        mainToolBar->addAction(toggleText);
         mainToolBar->addSeparator();
         mainToolBar->addAction(togglePagesList);
         mainToolBar->addAction(toggleFullscreen);
@@ -214,6 +218,7 @@ public:
         addImage->setToolTip(QApplication::translate("MainWindow", "add an image to the selected field", 0, QApplication::UnicodeUTF8));
 #endif // QT_NO_TOOLTIP
         addImage->setShortcut(QApplication::translate("MainWindow", "I", 0, QApplication::UnicodeUTF8));
+        toggleText->setText(QApplication::translate("MainWindow", "edit text", 0, QApplication::UnicodeUTF8));
         QTreeWidgetItem *___qtreewidgetitem = pagesList->headerItem();
         ___qtreewidgetitem->setText(0, QApplication::translate("MainWindow", "page", 0, QApplication::UnicodeUTF8));
         label->setText(QApplication::translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"

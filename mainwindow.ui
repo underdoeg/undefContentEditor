@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>702</width>
-    <height>510</height>
+    <width>824</width>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -123,7 +123,7 @@ p, li { white-space: pre-wrap; }
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>702</width>
+     <width>824</width>
      <height>22</height>
     </rect>
    </property>
@@ -150,6 +150,7 @@ p, li { white-space: pre-wrap; }
    <addaction name="separator"/>
    <addaction name="backgroundColor"/>
    <addaction name="addImage"/>
+   <addaction name="toggleText"/>
    <addaction name="separator"/>
    <addaction name="togglePagesList"/>
    <addaction name="toggleFullscreen"/>
@@ -261,6 +262,11 @@ p, li { white-space: pre-wrap; }
    </property>
    <property name="shortcut">
     <string>I</string>
+   </property>
+  </action>
+  <action name="toggleText">
+   <property name="text">
+    <string>edit text</string>
    </property>
   </action>
  </widget>

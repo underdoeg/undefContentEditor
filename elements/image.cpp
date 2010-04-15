@@ -6,6 +6,7 @@ image::image(QWidget* parent):QLabel(parent)
     show();
     autoSize = false;
     pixmap = 0;
+    mData.type = "image";
 }
 
 void image::setBounds(int x, int y, int w, int h){
@@ -21,49 +22,54 @@ void image::setBounds(int x, int y, int w, int h){
 QRect image::getBounds(){
     return geometry();
 };
+
 void image::onMediaDataChange(){
     if(mData.content.toString().isEmpty())
         showMenu();
-    else
+    else{
         loadImage(mData.content.toString());
+    }
 };
+
 void image::showMenu(){
     QString fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), QDir::homePath(), tr("Image Files (*.png *.jpeg *.jpg)"));
     if(fileName.isEmpty())
         return;
-    loadImage(fileName);
+    QFileInfo pathInfo( fileName );
+    QDateTime dt = QDateTime::currentDateTime();
+    QString newName = "img/"+dt.toString("yy_MM_dd-hh_mm_")+pathInfo.fileName();
+    ServerAPI::copyToTemp(fileName, newName);
+    loadImage(newName, true);
 };
 
-void image::loadImage(QString path){
+void image::loadImage(QString path, bool resize){
     if(pixmap != 0)
         delete pixmap;
-    pixmap = new QPixmap(path);
-    if(!pixmap->isNull())
+    mData.content = path;
+    if(!ServerAPI::fileExists(path)){
+        ServerAPI::downloadFile(this, path);
+        return;
+    }
+    pixmap = new QPixmap(ServerAPI::toTempPath(path));
+    if(!pixmap->isNull() && resize){
         setBounds(0,0, pixmap->width(), pixmap->height());
-    else
-       qDebug() << "///// ERROR there should be an image with path (" << path << "), but there is not!";
+        mListener->onMediaResize(0, 0, pixmap->width(), pixmap->height());
+        qDebug("SETTING THE BOUNDS");
+    }
 }
 
-/*
-data.media.img.pixmap = new QPixmap();
-data.media.type = "image";
-if(fileName.isEmpty()){
-    fileName = QFileDialog::getOpenFileName(this, tr("Open Image"), QDir::homePath(), tr("Image Files (*.png *.jpeg *.jpg)"));
-    QFile* f = new QFile(fileName);
-    QFileInfo pathInfo( fileName );
-    QDate date = QDate::currentDate();
-    QTime time = QTime::currentTime();
-    fileName = "img/"+date.toString("MM-dd-yy_")+time.toString("hh-mm-")+pathInfo.fileName();
-    ftpHandler::copyToTemp(f, fileName);
+void image::onFileDownloadComplete(QString fileName){
+    loadImage(fileName);
 }
-//ftpHandler::uploadFile(f, nName);
-data.media.img.pixmap->load(ftpHandler::localPath()+fileName);
-data.media.img.path = fileName;
-qDebug() << "loading img at location: " << ftpHandler::localPath()+fileName;
-if(resetPostion){
-    data.media.w = data.media.img.pixmap->width();
-    data.media.h = data.media.img.pixmap->height();
-    data.media.x = 0;
-    data.media.y = 0;
+
+void image::onFileUploadComplete(QString fileName){
+
 }
-updateImg();*/
+
+void image::onSave(){
+    ServerAPI::uploadFile(this, mData.content.toString());
+}
+
+QString image::getMediaType(){
+    return "image";
+}

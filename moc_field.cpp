@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'field.h'
 **
-** Created: Wed Apr 14 15:40:27 2010
+** Created: Thu Apr 15 02:52:12 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -58,6 +58,8 @@ void *field::qt_metacast(const char *_clname)
         return static_cast<void*>(const_cast< field*>(this));
     if (!strcmp(_clname, "apiListener"))
         return static_cast< apiListener*>(const_cast< field*>(this));
+    if (!strcmp(_clname, "mediaListener"))
+        return static_cast< mediaListener*>(const_cast< field*>(this));
     return QWidget::qt_metacast(_clname);
 }
 

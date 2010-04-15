@@ -16,7 +16,8 @@ public:
     void mouseReleaseEvent ( QMouseEvent * event );
     void onPagesList(QList<int> list);
     static pageHandler* getSingleton();
-    static page* addPage(int id=0);
+    static void addPage(page* p);
+    static void addPage(int id);
     static page* getCurrentPage();
     static page* getPageByID(int id);
 
@@ -26,7 +27,7 @@ public:
 
 public slots:
     static void loadPages();
-    static void addPage(page* p);
+    static void addPage();
     static void removePage(int id);
     static void removePage(page* p);
     static void updateTree();
@@ -38,6 +39,7 @@ public slots:
     static void addField(int parentID = -1);
     static void addImage();
     static void setFieldBackgroundColor();
+    static void toggleTextEdit();
 
 signals:
 

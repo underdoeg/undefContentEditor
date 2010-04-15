@@ -15,16 +15,10 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 public slots:
-    void savePage();
-
     void togglePagesList(bool stat=false);
     void toggleFullscreen(bool stat=false);
     void togglePreview(bool stat=false);
     void onPreviewHide();
-    void newPage();
-    void newField();
-    void addImage();
-    void setFieldBackgroundColor();
 
 protected:
     void changeEvent(QEvent *e);

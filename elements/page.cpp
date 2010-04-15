@@ -4,8 +4,20 @@
 page::page(QWidget *parent) :
         QWidget(parent)
 {
-    fieldOverlay = new QWidget(this);
-    fieldOverlay->setStyleSheet("background-color: rgba(255, 60, 0, 40);");//border: 1px solid #FF6030");
+    QHBoxLayout* layout =  new QHBoxLayout();
+    layout->setMargin(0);
+
+    setLayout(layout);
+    scrollArea = new QScrollArea();
+    scrollArea->setStyleSheet("");
+    layout->addWidget(scrollArea);
+
+    fieldRoot = new QWidget();
+    fieldRoot->setStyleSheet("background-color:transparent");
+    scrollArea->setWidget(fieldRoot);
+
+    fieldOverlay = new QWidget(fieldRoot);
+    fieldOverlay->setStyleSheet("background-color: rgba(60, 60, 0, 40);");//border: 1px solid #FF6030");
     fieldOverlay->setEnabled(false);
     fieldOverlay->setAttribute(Qt::WA_TransparentForMouseEvents); //ignore mouse
     fieldOverlay->setFocusPolicy( Qt::NoFocus );//ignore keyboard
@@ -13,6 +25,27 @@ page::page(QWidget *parent) :
     treeWidgetItem = new QTreeWidgetItem();
     treeWidgetItem->setText(0, "loading...");
     dataChanged = false;
+}
+
+void page::resetMinSize(){
+    int mx=0;
+    int my=0;
+    for(int i=0;i<fields.size();i++){
+        if(fields[i]->geometry().right()>mx)
+            mx = fields[i]->geometry().right();
+        if(fields[i]->geometry().bottom()>my)
+            my = fields[i]->geometry().bottom();
+    }
+    fieldRoot->setGeometry(0,0,mx+GRID_SIZE, my+GRID_SIZE);
+    fieldRoot->setMinimumSize(mx+GRID_SIZE, my+GRID_SIZE);
+}
+
+void page::fieldMoved(field *f){
+    resetMinSize();
+}
+
+void page::fieldResized(field *f){
+    resetMinSize();
 }
 
 void page::load(int id){
@@ -46,7 +79,7 @@ void page::parseData(){
 }
 
 void page::createField(int id){
-    field* f = new field(this);
+    field* f = new field(fieldRoot);
     f->parent = this;
     f->stackUnder(fieldOverlay);
     if(id>0)
@@ -70,7 +103,9 @@ void page::onPageSave(int id){
 }
 
 void page::addField(field* f){
+    f->addFieldListener(this);
     fields.push_back(f);
+    resetMinSize();
 }
 
 int page::getID(){
@@ -83,10 +118,16 @@ void page::activeFieldSelectBackground(){
     selectedFields[0]->selectBackgroundColor();
 }
 
-void page::addImage(){
+void page::addImage(bool showLoad){
     if(selectedFields.size()==0)
         return;
-    selectedFields[0]->addImage();
+    selectedFields[0]->addImage(showLoad);
+}
+
+void page::toggleTextEdit(){
+    if(selectedFields.size()==0)
+        return;
+    selectedFields[0]->toggleTextEdit();;
 }
 
 void page::selectFields(field* f){

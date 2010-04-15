@@ -8,9 +8,16 @@ field::field(QWidget *parent) :
     background = new QFrame(this);
     setStyleSheet("background-color: transparent;");
     mediaField = 0;
+
     overlay = new QFrame(this);
     overlay->setStyleSheet("background-color:transparent");
     altKeyPressed = false;
+
+    textEdit = new QTextEdit(this);
+    textEdit->setStyleSheet("border:none");
+    toggleTextEdit();
+
+    fieldListener = 0;
 }
 
 void field::load(int id){
@@ -33,11 +40,17 @@ void field::loadData(fieldData fd){
     setGeometry(data.x, data.y, data.w, data.h);
     updateGeometry();
     setBackgroundColor(data.background);
+    if(fieldListener != 0){
+        fieldListener->fieldMoved(this);
+        fieldListener->fieldResized(this);
+    }
+    textEdit->setText(data.content);
 }
 
 void field::updateGeometry(){
     background->setGeometry(0,0,data.w, data.h);
     overlay->setGeometry(0,0,data.w, data.h);
+    textEdit->setGeometry(0,0,data.w,data.h);
     if(mediaField != 0){
         if(mediaField->getAutoSize()){
             mediaField->setBounds(0, 0, data.w, data.h);
@@ -45,6 +58,7 @@ void field::updateGeometry(){
             mediaField->setBounds(data.media_x, data.media_y, data.media_w, data.media_h);
         }
     }
+
 }
 
 void field::setParentID(int id){
@@ -52,8 +66,12 @@ void field::setParentID(int id){
 }
 
 void field::save(){
-    if(mediaField != 0)
+    if(mediaField != 0){
+        mediaField->onSave();
         data.media = mediaField->getMediaData();
+        data.media.type = mediaField->getMediaType();
+    }
+    data.content = textEdit->toPlainText();
     ServerAPI::saveFieldData(this, data, mediaField);
 }
 
@@ -61,10 +79,22 @@ void field::onFieldSave(int id){
     pageHandler::loadPreview();
 }
 
+void field::toggleTextEdit(){
+    if(textEdit->isEnabled()){
+        textEdit->setEnabled(false);
+        textEdit->setStyleSheet("background-color:transparent");
+        textEdit->stackUnder(overlay);
+    }else{
+        textEdit->setEnabled(true);
+        textEdit->setStyleSheet("background-color:rgba(255,255,255,50)");
+        overlay->stackUnder(textEdit);
+    }
+}
+
 void field::highlite(){
     //QColor border(255-data.background.red(), 255-data.background.green(), 255-data.background.blue(), 255);
     QColor border(200, 100, 10, 255);
-    overlay->setStyleSheet("border: 1px solid"+border.name());
+    overlay->setStyleSheet("border: 1px solid "+border.name());
 }
 void field::unhighlite(){
     overlay->setStyleSheet("border: none;");
@@ -85,15 +115,29 @@ void field::setBackgroundColor(QColor colr){
 
 void field::setMediaField(media* mf){
     mediaField = mf;
-
+    mf->setMediaListener(this);
     mediaField->setBounds(0,0,geometry().width(),geometry().height());
 }
 
-void field::addImage(){
+void field::onMediaResize(int x, int y, int w, int h){
+    data.media_x = x;
+    data.media_y = y;
+    data.media_w = w;
+    data.media_h = h;
+}
+
+
+void field::addImage(bool showLoad){
     image* img = new image(this);
-    img->stackUnder(overlay);
+    img->stackUnder(textEdit);
     setMediaField(img);
     img->setMediaData(data.media);
+    if(showLoad)
+        img->showMenu();
+}
+
+void field::addFieldListener(fieldMoveListener* listener){
+    fieldListener = listener;
 }
 
 void field::enterEvent( QEvent * event ){
@@ -102,6 +146,7 @@ void field::enterEvent( QEvent * event ){
 
 void field::leaveEvent( QEvent * event ){
     parent->setFocus();
+    altKeyPressed = false;
 }
 
 void field::keyPressEvent ( QKeyEvent * event ){
@@ -143,6 +188,14 @@ void field::mouseReleaseEvent( QMouseEvent * event ){
     parent->fieldOverlayHide();
 }
 
+void field::mouseDoubleClickEvent ( QMouseEvent * event ){
+    if(mediaField != 0){
+        mediaField->showMenu();
+        return;
+    }
+    toggleTextEdit();
+}
+
 void field::mouseMoveEvent( QMouseEvent * event ){
     QRect r;
     QRect overlay;
@@ -161,6 +214,8 @@ void field::mouseMoveEvent( QMouseEvent * event ){
         setGeometry(toGrid(r, modeX, modeY));
         data.x = geometry().x();
         data.y = geometry().y();
+        if(fieldListener!=0)
+            fieldListener->fieldMoved(this);
         break;
     case FIELD_SCALE:
         overlay = parent->fieldOverlayGetPosition();
@@ -173,6 +228,8 @@ void field::mouseMoveEvent( QMouseEvent * event ){
         data.w = geometry().width();
         data.h = geometry().height();
         updateGeometry();
+        if(fieldListener!=0)
+            fieldListener->fieldResized(this);
         break;
     case MEDIA_DRAG:
         if(mediaField == 0)
@@ -180,7 +237,7 @@ void field::mouseMoveEvent( QMouseEvent * event ){
         mRect = mediaField->getBounds();
         mediaField->setBounds(mRect.x()+event->x()-mouseOffset.x(), mRect.y()+event->y()-mouseOffset.y(), mRect.width(), mRect.height());
         data.media_x = mediaField->getBounds().x();
-        data.media_x = mediaField->getBounds().y();
+        data.media_y = mediaField->getBounds().y();
         updateMouseOffset = true;
         break;
     case MEDIA_SCALE:

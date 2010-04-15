@@ -29,15 +29,16 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setGeometry(50, 50, 1200, 700);
 
-    connect(ui->savePage,SIGNAL(triggered()),this, SLOT(savePage()));
-
+    connect(ui->savePage,SIGNAL(triggered()),pageHandler::getSingleton(), SLOT(savePage()));
     connect(ui->togglePagesList,SIGNAL(triggered()),this, SLOT(togglePagesList()));
     connect(ui->toggleFullscreen,SIGNAL(triggered()),this, SLOT(toggleFullscreen()));
     connect(ui->togglePreview,SIGNAL(triggered()),this, SLOT(togglePreview()));
-    connect(ui->newPage,SIGNAL(triggered()),this, SLOT(newPage()));
-    connect(ui->newField,SIGNAL(triggered()),this, SLOT(newField()));
-    connect(ui->backgroundColor, SIGNAL(triggered()), this, SLOT(setFieldBackgroundColor()));
+    connect(ui->newPage,SIGNAL(triggered()),pageHandler::getSingleton(), SLOT(addPage()));
+    connect(ui->newField,SIGNAL(triggered()),pageHandler::getSingleton(), SLOT(addField()));
+    connect(ui->backgroundColor, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(setFieldBackgroundColor()));
     connect(ui->addImage, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(addImage()));
+    connect(ui->toggleText, SIGNAL(triggered()), pageHandler::getSingleton(), SLOT(toggleTextEdit()));
+
 
     lastWebViewGeometry = QRect(200,200,500,400);
 }
@@ -45,26 +46,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
-}
-
-void MainWindow::savePage(){
-    pageHandler::savePage();
-}
-
-void MainWindow::newPage(){
-    pageHandler::addPage();
-}
-
-void MainWindow::newField(){
-    pageHandler::addField();
-}
-
-void MainWindow::addImage(){
-
-}
-
-void MainWindow::setFieldBackgroundColor(){
-    pageHandler::setFieldBackgroundColor();
 }
 
 void MainWindow::togglePagesList(bool stat){

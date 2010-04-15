@@ -3,10 +3,12 @@
 
 #include <QWidget>
 #include <QTreeWidgetItem>
+#include <QHBoxLayout>
+#include <QScrollArea>
 #include "utils/api.h"
 #include "field.h"
 
-class page : public QWidget, public apiListener
+class page : public QWidget, public apiListener, public fieldMoveListener
 {
 Q_OBJECT
 public:
@@ -27,8 +29,11 @@ public:
     void unselectFields();
     void mouseReleaseEvent ( QMouseEvent * event );
     void activeFieldSelectBackground();
-    void addImage();
-
+    void addImage(bool showLoader=false);
+    void toggleTextEdit();
+    void resetMinSize();
+    void fieldMoved(field *f);
+    void fieldResized(field *f);
     QRect fieldOverlayGetPosition();
 
     QTreeWidgetItem* treeWidgetItem;
@@ -44,6 +49,8 @@ private:
     QWidget* fieldOverlay;
     field* fieldToDrag;
     QList<field*> selectedFields;
+    QScrollArea* scrollArea;
+    QWidget* fieldRoot;
 };
 
 #endif // PAGE_H

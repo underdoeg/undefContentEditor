@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'pagehandler.h'
 **
-** Created: Wed Apr 14 15:40:24 2010
+** Created: Thu Apr 15 02:52:09 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -23,7 +23,7 @@ static const uint qt_meta_data_pageHandler[] = {
        4,       // revision
        0,       // classname
        0,    0, // classinfo
-      17,   14, // methods
+      18,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -32,34 +32,35 @@ static const uint qt_meta_data_pageHandler[] = {
 
  // slots: signature, parameters, type, tag, flags
       13,   12,   12,   12, 0x0a,
-      27,   25,   12,   12, 0x0a,
-      45,   42,   12,   12, 0x0a,
-      61,   25,   12,   12, 0x0a,
-      79,   12,   12,   12, 0x0a,
-      92,   25,   12,   12, 0x0a,
-     108,   42,   12,   12, 0x0a,
-     122,   12,   12,   12, 0x0a,
-     130,   42,   12,   12, 0x0a,
-     147,   12,   12,   12, 0x2a,
-     161,   42,   12,   12, 0x0a,
-     175,   12,   12,   12, 0x2a,
-     195,  186,   12,   12, 0x0a,
-     209,   12,   12,   12, 0x2a,
-     220,   12,   12,   12, 0x0a,
-     231,   12,   12,   12, 0x0a,
-     257,   12,   12,   12, 0x0a,
+      25,   12,   12,   12, 0x0a,
+      38,   35,   12,   12, 0x0a,
+      56,   54,   12,   12, 0x0a,
+      74,   12,   12,   12, 0x0a,
+      87,   54,   12,   12, 0x0a,
+     103,   35,   12,   12, 0x0a,
+     117,   12,   12,   12, 0x0a,
+     125,   35,   12,   12, 0x0a,
+     142,   12,   12,   12, 0x2a,
+     156,   35,   12,   12, 0x0a,
+     170,   12,   12,   12, 0x2a,
+     190,  181,   12,   12, 0x0a,
+     204,   12,   12,   12, 0x2a,
+     215,   12,   12,   12, 0x0a,
+     226,   12,   12,   12, 0x0a,
+     252,   12,   12,   12, 0x0a,
+     269,   12,   12,   12, 0x0a,
 
        0        // eod
 };
 
 static const char qt_meta_stringdata_pageHandler[] = {
-    "pageHandler\0\0loadPages()\0p\0addPage(page*)\0"
-    "id\0removePage(int)\0removePage(page*)\0"
+    "pageHandler\0\0loadPages()\0addPage()\0"
+    "id\0removePage(int)\0p\0removePage(page*)\0"
     "updateTree()\0showPage(page*)\0showPage(int)\0"
     "setup()\0loadPreview(int)\0loadPreview()\0"
     "savePage(int)\0savePage()\0parentID\0"
     "addField(int)\0addField()\0addImage()\0"
-    "setFieldBackgroundColor()\0"
+    "setFieldBackgroundColor()\0toggleTextEdit()\0"
     "treeItemClicked(QTreeWidgetItem*)\0"
 };
 
@@ -95,7 +96,7 @@ int pageHandler::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_c == QMetaObject::InvokeMetaMethod) {
         switch (_id) {
         case 0: loadPages(); break;
-        case 1: addPage((*reinterpret_cast< page*(*)>(_a[1]))); break;
+        case 1: addPage(); break;
         case 2: removePage((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 3: removePage((*reinterpret_cast< page*(*)>(_a[1]))); break;
         case 4: updateTree(); break;
@@ -110,10 +111,11 @@ int pageHandler::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
         case 13: addField(); break;
         case 14: addImage(); break;
         case 15: setFieldBackgroundColor(); break;
-        case 16: treeItemClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
+        case 16: toggleTextEdit(); break;
+        case 17: treeItemClicked((*reinterpret_cast< QTreeWidgetItem*(*)>(_a[1]))); break;
         default: ;
         }
-        _id -= 17;
+        _id -= 18;
     }
     return _id;
 }

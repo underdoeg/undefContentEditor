@@ -31,12 +31,15 @@ void pageHandler::onPagesList(QList<int> list){
     }
 };
 
-page* pageHandler::addPage(int id){
+void pageHandler::addPage(int id){
     page* p = new page(getSingleton());
     pageStack->addWidget(p);
     if(id>0)p->load(id);else{ pageData d; p->onPageData(d);};
     addPage(p);
-    return p;
+}
+
+void pageHandler::addPage(){
+    addPage(-1);
 }
 
 void pageHandler::addPage(page* p){
@@ -94,11 +97,10 @@ void pageHandler::savePage(int id){
 }
 
 void pageHandler::addImage(){
-    qDebug() << "add an image";
     page* p = getCurrentPage();
     if(p == 0)
         return;
-    p->addImage();
+    p->addImage(true);
 }
 
 void pageHandler::setFieldBackgroundColor(){
@@ -106,6 +108,13 @@ void pageHandler::setFieldBackgroundColor(){
     if(p == 0)
         return;
     p->activeFieldSelectBackground();
+}
+
+void pageHandler::toggleTextEdit(){
+    page* p = getCurrentPage();
+    if(p == 0)
+        return;
+    p->toggleTextEdit();
 }
 
 void pageHandler::mouseReleaseEvent ( QMouseEvent * event ){

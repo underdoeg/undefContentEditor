@@ -1,7 +1,7 @@
 /****************************************************************************
 ** Meta object code from reading C++ file 'page.h'
 **
-** Created: Wed Apr 14 15:40:22 2010
+** Created: Thu Apr 15 02:52:06 2010
 **      by: The Qt Meta Object Compiler version 62 (Qt 4.6.2)
 **
 ** WARNING! All changes made in this file will be lost!
@@ -58,6 +58,8 @@ void *page::qt_metacast(const char *_clname)
         return static_cast<void*>(const_cast< page*>(this));
     if (!strcmp(_clname, "apiListener"))
         return static_cast< apiListener*>(const_cast< page*>(this));
+    if (!strcmp(_clname, "fieldMoveListener"))
+        return static_cast< fieldMoveListener*>(const_cast< page*>(this));
     return QWidget::qt_metacast(_clname);
 }
 

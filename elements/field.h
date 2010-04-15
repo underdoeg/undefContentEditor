@@ -4,6 +4,7 @@
 #include <QFrame>
 #include <QWidget>
 #include <QMouseEvent>
+#include <QTextEdit>
 #include <QColorDialog>
 #include "utils/api.h"
 #include "utils/utils.h"
@@ -13,8 +14,14 @@
 class page;
 enum{FIELD_DRAG, FIELD_SCALE, MEDIA_DRAG, MEDIA_SCALE};
 #define FIELD_SCALE_AREA 20
+class field;
+class fieldMoveListener{
+public:
+    virtual void fieldMoved(field* f){};
+    virtual void fieldResized(field* f){};
+};
 
-class field : public QWidget, public apiListener
+class field : public QWidget, public apiListener, public mediaListener
 {
 Q_OBJECT
 public:
@@ -30,10 +37,14 @@ public:
     void unhighlite();
     void selectBackgroundColor();
     void setBackgroundColor(QColor colr);
-    void addImage();
+    void addImage(bool showLoader=false);
     void setMediaField(media* mf);
     void keyPressEvent ( QKeyEvent * event );
     void keyReleaseEvent ( QKeyEvent * event );
+    void mouseDoubleClickEvent ( QMouseEvent * event );
+    void onMediaResize(int x, int y, int w, int h);
+    void toggleTextEdit();
+    void addFieldListener(fieldMoveListener* listener);
     xmlrpc::Variant getContentData();
 
     page* parent;
@@ -55,6 +66,8 @@ private:
     QPoint mouseOffset;
     media* mediaField;
     bool altKeyPressed;
+    QTextEdit* textEdit;
+    fieldMoveListener* fieldListener;
 };
 
 #endif // FIELD_H

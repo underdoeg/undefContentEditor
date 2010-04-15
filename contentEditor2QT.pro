@@ -34,3 +34,4 @@ unix {
     else:LIBS += libqxmlrpc.a
 }
 win32:LIBS += /xmlrpc/qxmlrpc.lib
+OTHER_FILES += style.qss
